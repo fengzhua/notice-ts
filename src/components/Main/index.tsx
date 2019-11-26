@@ -1,18 +1,13 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-import Side from '../Side'
-import Main from '../Main'
-
-export default class Container extends React.Component<any, {}>{
+export default class Main extends React.Component{
     // constructor(props){
     //     super(props)
     // }
-
-    render() {
+    render(){
         return <div className={styles.container}>
-            <Side/>
-            <Main/>
+            main
         </div>
     }
 }

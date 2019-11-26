@@ -1,0 +1,15 @@
+.sideContainer {
+  background-color: rgba(179, 179, 179, .9);
+  width: 200px;
+  opacity: .7;
+  display: flex;
+  justify-content: flex-end;
+  .dragDiv {
+    width: 15px;
+    //opacity: 0;
+    background-color: red;
+    position: relative;
+    left: 7px;
+    cursor: ew-resize;
+  }
+}
