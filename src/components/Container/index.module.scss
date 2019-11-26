@@ -1,0 +1,29 @@
+.container{
+    width: 900px;
+    margin: 0 auto;
+    height: 550px;
+    display: flex;
+}
+
+body{
+    background-image: url("https://fengzhua-1300368835.cos.ap-chengdu.myqcloud.com/backGround.jpeg");
+    min-height: 101vh;
+
+    /*cursor: ns-resize;*/
+    /*↕️ 上下cursor*/
+
+    /*cursor: ew-resize;*/
+    /*↔️ 左右cursor*/
+
+    /*cursor: n-resize;*/
+    /*⬆️ 上cursor*/
+
+    /*cursor: s-resize;*/
+    /*⬇️ 下cursor*/
+
+    /*cursor: w-resize;*/
+    /*⬅️ 左cursor*/
+
+    /*cursor: e-resize;*/
+    /*➡️ 右cursor*/
+}
