@@ -7,7 +7,7 @@ export default class Side extends React.Component{
     // }
     render(){
         return <div className={styles.sideContainer}>
-            <div className={styles.dragDiv}></div>
+            <div className={styles.dragDiv}/>
         </div>
     }
 }

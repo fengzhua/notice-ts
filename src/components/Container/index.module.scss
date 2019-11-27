@@ -1,29 +1,43 @@
-.container{
-    width: 900px;
-    margin: 0 auto;
-    height: 550px;
+.container {
+  width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  max-height: 600px;
+
+  .drag {
+    background-color: red;
+    height: 15px;
+    position: relative;
+    top: -7px;
+    cursor: ns-resize;
+  }
+  .top{
     display: flex;
+    flex: 1;
+  }
 }
 
-body{
-    background-image: url("https://fengzhua-1300368835.cos.ap-chengdu.myqcloud.com/backGround.jpeg");
-    min-height: 101vh;
+body {
+  background-image: url("https://fengzhua-1300368835.cos.ap-chengdu.myqcloud.com/backGround.jpeg");
+  //min-height: 101vh;
 
-    /*cursor: ns-resize;*/
-    /*↕️ 上下cursor*/
+  /*cursor: ns-resize;*/
+  /*↕️ 上下cursor*/
 
-    /*cursor: ew-resize;*/
-    /*↔️ 左右cursor*/
+  /*cursor: ew-resize;*/
+  /*↔️ 左右cursor*/
 
-    /*cursor: n-resize;*/
-    /*⬆️ 上cursor*/
+  /*cursor: n-resize;*/
+  /*⬆️ 上cursor*/
 
-    /*cursor: s-resize;*/
-    /*⬇️ 下cursor*/
+  /*cursor: s-resize;*/
+  /*⬇️ 下cursor*/
 
-    /*cursor: w-resize;*/
-    /*⬅️ 左cursor*/
+  /*cursor: w-resize;*/
+  /*⬅️ 左cursor*/
 
-    /*cursor: e-resize;*/
-    /*➡️ 右cursor*/
+  /*cursor: e-resize;*/
+  /*➡️ 右cursor*/
 }
