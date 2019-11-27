@@ -33,7 +33,7 @@ export default class Container extends React.Component<any, IContainerState> {
 
     startPosition: IPosition
     containerRef: HTMLDivElement | null
-    rootContainer: HTMLElement | null
+    rootContainer: HTMLElement | null //
 
     componentDidMount() {
         this.rootContainer = document.getElementById('root')
