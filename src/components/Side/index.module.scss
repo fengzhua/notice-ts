@@ -1,9 +1,10 @@
 .sideContainer {
   background-color: rgba(179, 179, 179, .9);
-  width: 200px;
   opacity: .7;
   display: flex;
   justify-content: flex-end;
+  min-width: 150px;
+  max-width: 300px;
   .dragDiv {
     width: 15px;
     //opacity: 0;
