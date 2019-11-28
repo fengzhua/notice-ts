@@ -65,7 +65,6 @@ export default class Container extends React.Component<any, IContainerState> {
         document.removeEventListener('mouseup', this.documentUpCallBack)
     }
 
-
     onMouseDown = (e: React.MouseEvent) => {
         let {clientY} = e
         this.startPosition.clientY = clientY
@@ -73,8 +72,6 @@ export default class Container extends React.Component<any, IContainerState> {
         document.addEventListener('mousemove', this.documentMoveCallBack)
         document.addEventListener('mouseup', this.documentUpCallBack)
     }
-
-
 
     onMouseUp = () => {
         document.removeEventListener('mousemove', this.documentMoveCallBack)
@@ -89,7 +86,6 @@ export default class Container extends React.Component<any, IContainerState> {
                 <Side/>
                 <Main/>
             </div>
-
             <div className={styles.drag} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}/>
         </div>
     }
