@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input } from 'antd';
+import { Input, Divider, Icon } from 'antd';
 import styles from './index.module.scss'
 
 import { IItemData } from '../interfaces'
@@ -53,7 +53,7 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
                     this.onItemInputChange(item, index, e)
                 }} placeholder="Basic usage" defaultValue={item.text}/>
             }else {
-                return <span className={styles.blueBGC}>{item.text}</span>
+                return <span>{item.text}</span>
             }
         }else {
             return <span className={styles.normal}>{item.text}</span>
@@ -62,9 +62,19 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
 
     render() {
         const { items } = this.props
+        const {activeKey} = this.state
+        let blueStyle = (333 === activeKey)?' '+styles.blueBGC : ''
         return <>
+            <div className={styles.itemWrapper+ blueStyle} onClick={(e) => {
+                this.onItemClick({text: '已计划'}, 333, e)
+                }}>
+                <Icon type="clock-circle" />
+                {this.renderCurrentItem({text: '已计划'}, 333)}
+            </div>
+            <Divider/>
             {items.map((item, index) => {
-                return <div onClick={(e) => {
+                let blueStyle = (index === activeKey)?' '+styles.blueBGC : ''
+                return <div className={styles.itemWrapper + blueStyle} onClick={(e) => {
                     this.onItemClick(item, index, e)
                 }}
                 onDoubleClick={this.onItemDoubleClick.bind(this, item, index)} key={index}>
