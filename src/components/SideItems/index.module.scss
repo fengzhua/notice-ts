@@ -1,9 +1,24 @@
 .normal{
 
 }
-
 .blueBGC{
   background-color: #50A4F5;
   display: block;
   cursor: default;
+}
+.itemWrapper:nth-of-type(1){
+  margin-top: 12px;
+}
+
+.itemWrapper{
+  height: 30px;
+  line-height: 30px;
+  :global(.ant-input){
+    height: 22px !important;
+  }
+}
+
+:global(.ant-divider-horizontal){
+  margin: 9px 0 !important;
+  background: black !important;
 }

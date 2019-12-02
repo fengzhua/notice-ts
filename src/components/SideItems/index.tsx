@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input } from 'antd';
+import { Input, Divider, Icon } from 'antd';
 import styles from './index.module.scss'
 
 import { IItemData } from '../interfaces'
@@ -47,6 +47,17 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
 
     renderCurrentItem = (item, index) => {
         const { isShowInput, activeKey } = this.state
+        if(index === 0){
+            if(activeKey === index){
+                if(isShowInput){
+                    return <Input onChange={(e) => {
+                        this.onItemInputChange(item, index, e)
+                    }} placeholder="Basic usage" defaultValue={item.text}/>
+                }
+            }else {
+                return <span className={styles.normal}>{item.text}</span>
+            }
+        }
         if(activeKey === index){
             if(isShowInput){
                 return <Input onChange={(e) => {
@@ -64,12 +75,24 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
         const { items } = this.props
         return <>
             {items.map((item, index) => {
-                return <div onClick={(e) => {
-                    this.onItemClick(item, index, e)
-                }}
-                onDoubleClick={this.onItemDoubleClick.bind(this, item, index)} key={index}>
-                    {this.renderCurrentItem(item, index)}
-            </div>
+                if(index === 0){
+                    return <>
+                        <div className={styles.itemWrapper} onClick={(e) => {
+                            this.onItemClick(item, index, e)
+                        }} key={index}>
+                            {this.renderCurrentItem(item, index)}
+                        </div>
+                        <Divider/>
+                    </>
+                }else {
+                    return <div className={styles.itemWrapper} onClick={(e) => {
+                        this.onItemClick(item, index, e)
+                    }}
+                                onDoubleClick={this.onItemDoubleClick.bind(this, item, index)} key={index}>
+                        {this.renderCurrentItem(item, index)}
+                    </div>
+                }
+
             })}
         </>
     }
