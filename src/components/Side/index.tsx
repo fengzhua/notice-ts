@@ -26,9 +26,9 @@ export default class Side extends React.Component<any, ISideState>{
         super(props)
         this.state = {
             containerWidth: 200, // 默认高度550px
-            dataAll: [{text: '哈哈哈'},
+            dataAll: [{text: '已计划'},
                 {text: '哈哈哈1'},
-                {text: '哈哈哈2'}]
+                {text: '哈哈哈2'},{text: '哈哈哈3'}]
         }
         this.startPosition = {
             clientX: 0,
