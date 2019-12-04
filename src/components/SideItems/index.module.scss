@@ -17,7 +17,9 @@
     height: 22px !important;
   }
 }
-
+.deleteButton {
+  margin-right: 5px;
+}
 :global(.ant-divider-horizontal){
   margin: 9px 0 !important;
   background: black !important;
