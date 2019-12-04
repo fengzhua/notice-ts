@@ -1,11 +1,12 @@
 import React from 'react'
-import { Input, Divider, Icon } from 'antd';
+import { Input, Divider, Icon, Button } from 'antd';
 import styles from './index.module.scss'
 
 import { IItemData } from '../interfaces'
 
 export interface ISideItemsProps {
     onItemChange: (id: string, index: number, e:React.ChangeEvent<HTMLInputElement>)=>void
+    deleteData: (index: number)=>void
     items: IItemData[]
 }
 
@@ -55,19 +56,31 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
                     }} placeholder="Basic usage" defaultValue={item.text}/>
                 }
             }else {
-                return <span className={styles.normal}>{item.text}</span>
+                return  <span className={styles.normal}>{item.text}</span>
             }
         }
         if(activeKey === index){
             if(isShowInput){
-                return <Input onChange={(e) => {
-                    this.onItemInputChange(item, index, e)
-                }} placeholder="Basic usage" defaultValue={item.text}/>
+                return <Input onChange={(e) => {this.onItemInputChange(item, index, e)}}
+                              onClick={(e) => {this.onItemClick(item, index, e)}}
+                              onDoubleClick={this.onItemDoubleClick.bind(this, item, index)}
+                              defaultValue={item.text}/>
             }else {
-                return <span className={styles.blueBGC}>{item.text}</span>
+                return <div>
+                    <span className={styles.blueBGC}
+                          onClick={(e) => {this.onItemClick(item, index, e)}}
+                          onDoubleClick={this.onItemDoubleClick.bind(this, item, index)}
+                    >{item.text}</span>
+                </div>
             }
         }else {
-            return <span className={styles.normal}>{item.text}</span>
+            return <div>
+                <Button className={styles.deleteButton} size="small" onClick={this.props.deleteData.bind(this, index)}>del</Button>
+                <span className={styles.normal}
+                      onClick={(e) => {this.onItemClick(item, index, e)}}
+                      onDoubleClick={this.onItemDoubleClick.bind(this, item, index)}
+                >{item.text}</span>
+            </div>
         }
     }
 
@@ -85,10 +98,7 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
                         <Divider/>
                     </>
                 }else {
-                    return <div className={styles.itemWrapper} onClick={(e) => {
-                        this.onItemClick(item, index, e)
-                    }}
-                                onDoubleClick={this.onItemDoubleClick.bind(this, item, index)} key={index}>
+                    return <div className={styles.itemWrapper} key={index}>
                         {this.renderCurrentItem(item, index)}
                     </div>
                 }
