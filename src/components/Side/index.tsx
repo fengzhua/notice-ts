@@ -18,18 +18,19 @@ interface IPosition {
 
 interface ISideState {
     containerWidth: number
-    dataAll: IItemData[]
 }
 
-export default class Side extends React.Component<any, ISideState>{
+interface ISideProps {
+    dataAll: any
+    updateContainerState: (newDataAll: any) => void
+    activityKey: number | string
+}
+
+export default class Side extends React.Component<ISideProps, ISideState>{
     constructor(props){
         super(props)
         this.state = {
             containerWidth: 200, // 默认高度550px
-            dataAll: [{text: '已计划'},
-                {text: '哈哈哈1'},
-                {text: '哈哈哈2'},{text: '哈哈哈3'}]
-
         }
         this.startPosition = {
             clientX: 0,
@@ -85,33 +86,15 @@ export default class Side extends React.Component<any, ISideState>{
         document.removeEventListener('mousemove', this.documentMoveCallBack)
     }
 
-    onItemChange = (id: string, index: number, e:React.ChangeEvent<HTMLInputElement>) => {
-        let {dataAll} = this.state
-        dataAll[index].text = e.target.value
-        this.setState({dataAll: [...dataAll]})
-    }
-    addData = (e)=>{
-        let {dataAll} = this.state;
-        let inputData = {text:e.target.value};
-        dataAll.push(inputData);
-        this.setState({dataAll:dataAll});
-
-    }
-    deleteData = (index: number)=>{
-        let {dataAll} = this.state;
-        dataAll.splice(index, 1);
-        this.setState({dataAll:dataAll});
-    }
     render(){
-        const {dataAll} = this.state
+        const {dataAll, activityKey, updateContainerState} = this.props
         return <div className={styles.sideContainer} ref={(divRef: HTMLDivElement) => {
             this.containerRef = divRef
         }} style={{width: this.state.containerWidth}}>
             <div className={styles.inner}>
                 <Search placeholder="搜索" onSearch={value => console.log(value)} enterButton />
-                <Input className={styles.input}  placeholder="添加" onPressEnter={this.addData}/>
-                <SideItems onItemChange={this.onItemChange}
-                           items={dataAll} deleteData={this.deleteData} />
+                <SideItems updateContainerState={updateContainerState}
+                           dataAll={dataAll} activityKey={activityKey} />
             </div>
             <div className={styles.dragDiv} onMouseDown={this.onMouseDown} onMouseUp={this.onMouseUp}/>
         </div>
