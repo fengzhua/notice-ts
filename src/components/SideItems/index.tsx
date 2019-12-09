@@ -1,6 +1,8 @@
 import React from 'react'
 import { Input, Divider, Icon, Button } from 'antd';
 import styles from './index.module.scss'
+import Modal from '../../components/Modal'
+
 
 import { IItemData } from '../interfaces'
 
@@ -103,6 +105,8 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
                     {this.renderCurrentItem(item, index)}
                 </div>
             })}
+            <Button type="primary" onClick={() => {}}>弹窗</Button>
+            <Modal/>
         </>
     }
 }
