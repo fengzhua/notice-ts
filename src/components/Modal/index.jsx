@@ -19,7 +19,7 @@ export default class Modal extends React.Component{
                     <button className="modal-operator-confirm">确认</button>
                 </div>
             </div>
-            <div className="mask"></div>
+            <div className="mask"/>
         </div>
         ReactDOM.render(modalItem,div)
     }
