@@ -1,26 +1,26 @@
 import React from 'react'
 import { Input, Divider, Icon, Button } from 'antd';
 import styles from './index.module.scss'
+import Modal from '../../components/Modal'
+
 
 import { IItemData } from '../interfaces'
 
 export interface ISideItemsProps {
-    onItemChange: (id: string, index: number, e:React.ChangeEvent<HTMLInputElement>)=>void
-    deleteData: (index: number)=>void
-    items: IItemData[]
+    dataAll: any
+    updateContainerState: (newDataAll: any) => void
+    activityKey: number | string
 }
 
 interface ISideItemsStates {
     isShowInput: boolean
-    activeKey: number
 }
 
 export default class SideItems extends React.Component<ISideItemsProps, ISideItemsStates>{
     constructor(props) {
         super(props)
         this.state = {
-            isShowInput: false,
-            activeKey: 0
+            isShowInput: false
         }
     }
 
@@ -32,10 +32,11 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
 
     onItemClick = (item, index, e) => {
         e.nativeEvent.stopImmediatePropagation();
-        if(index === this.state.activeKey){
+        const {activityKey} = this.props
+        if(index === activityKey){
             return
         }
-        this.setState({isShowInput: false, activeKey: index})
+        this.props.updateContainerState({activityKey: index})
     }
 
     onItemDoubleClick(item, index){
@@ -43,28 +44,20 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
     }
 
     onItemInputChange = (item, index, e:React.ChangeEvent<HTMLInputElement>) => {
-        this.props.onItemChange(item, index, e)
+        let {dataAll} = this.props
+        dataAll[index].text = e.target.value
+        this.props.updateContainerState({dataAll: dataAll})
     }
 
     renderCurrentItem = (item, index) => {
-        const { isShowInput, activeKey } = this.state
-        if(index === 0){
-            if(activeKey === index){
-                if(isShowInput){
-                    return <Input onChange={(e) => {
-                        this.onItemInputChange(item, index, e)
-                    }} placeholder="Basic usage" defaultValue={item.text}/>
-                }
-            }else {
-                return  <span className={styles.normal}>{item.text}</span>
-            }
-        }
-        if(activeKey === index){
+        const { isShowInput } = this.state
+        const {activityKey} = this.props
+        if(activityKey === index){
             if(isShowInput){
-                return <Input onChange={(e) => {this.onItemInputChange(item, index, e)}}
-                              onClick={(e) => {this.onItemClick(item, index, e)}}
-                              onDoubleClick={this.onItemDoubleClick.bind(this, item, index)}
-                              defaultValue={item.text}/>
+                return <Input defaultValue={item.text} onClick={(e) => {
+                    this.onItemClick(item, index, e)
+                }
+                } onChange={(e) => {this.onItemInputChange(item, index, e)}}/>
             }else {
                 return <div>
                     <span className={styles.blueBGC}
@@ -75,7 +68,7 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
             }
         }else {
             return <div>
-                <Button className={styles.deleteButton} size="small" onClick={this.props.deleteData.bind(this, index)}>del</Button>
+                {/*<Button className={styles.deleteButton} size="small" onClick={() => {}}>del</Button>*/}
                 <span className={styles.normal}
                       onClick={(e) => {this.onItemClick(item, index, e)}}
                       onDoubleClick={this.onItemDoubleClick.bind(this, item, index)}
@@ -84,26 +77,36 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
         }
     }
 
-    render() {
-        const { items } = this.props
-        return <>
-            {items.map((item, index) => {
-                if(index === 0){
-                    return <>
-                        <div className={styles.itemWrapper} onClick={(e) => {
-                            this.onItemClick(item, index, e)
-                        }} key={index}>
-                            {this.renderCurrentItem(item, index)}
-                        </div>
-                        <Divider/>
-                    </>
-                }else {
-                    return <div className={styles.itemWrapper} key={index}>
-                        {this.renderCurrentItem(item, index)}
-                    </div>
-                }
+    renderAllFirstItem = () => {
+        const { dataAll, activityKey } = this.props
+        if(activityKey === 'all'){
+            return <div className={styles.itemWrapper + ' ' + styles.blueBGC} onClick={(e) => {
+                this.onItemClick({}, 'all', e)
+            }}>
+                <span>所有计划</span>
+            </div>
+        }else {
+            return <div className={styles.itemWrapper} onClick={(e) => {
+                this.onItemClick({}, 'all', e)
+            }}>
+                <span>所有计划</span>
+            </div>
+        }
 
+    }
+
+    render() {
+        const { dataAll } = this.props
+        return <>
+            {this.renderAllFirstItem()}
+            <Divider/>
+            {dataAll.map((item, index) => {
+                return <div className={styles.itemWrapper} key={index}>
+                    {this.renderCurrentItem(item, index)}
+                </div>
             })}
+            <Button type="primary" onClick={() => {}}>弹窗</Button>
+            <Modal/>
         </>
     }
 }
