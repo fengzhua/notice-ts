@@ -10,9 +10,8 @@ export default class NewPortal extends React.Component {
     }
 
     render() {
-        const { visible, children } = this.props;
-        // 直接通过显隐表示
-        return visible && ReactDOM.createPortal(
+        const {children} = this.props
+        return ReactDOM.createPortal(
                 children,
                 this.node,
         );
