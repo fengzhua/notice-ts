@@ -59,3 +59,37 @@
   opacity: .6;
   z-index: 9998;
 }
+
+.none{
+  display: none;
+}
+
+//动画有关的代码
+
+.modal-enter {
+  transform: scale(0);
+}
+
+.modal-enter-active {
+  transform: scale(1.2);
+  transition: all .2s linear;
+}
+
+.modal-enter-end {
+  transform: scale(1);
+  transition: all .1s linear;
+}
+
+.modal-leave {
+  transform: scale(1);
+}
+
+.modal-leave-active {
+  transform: scale(1.1);
+  transition: all .1s linear;
+}
+
+.modal-leave-end {
+  transform: scale(0);
+  transition: all .2s linear;
+}
