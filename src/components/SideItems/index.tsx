@@ -14,13 +14,15 @@ export interface ISideItemsProps {
 
 interface ISideItemsStates {
     isShowInput: boolean
+    isVisible: boolean
 }
 
 export default class SideItems extends React.Component<ISideItemsProps, ISideItemsStates>{
     constructor(props) {
         super(props)
         this.state = {
-            isShowInput: false
+            isShowInput: false,
+            isVisible: false
         }
     }
 
@@ -95,6 +97,20 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
 
     }
 
+    onModalShow = () => {
+
+        this.setState({
+            isVisible: true
+        })
+    }
+
+    closeModal = () => {
+        this.setState({
+            isVisible: false
+        })
+
+    }
+
     render() {
         const { dataAll } = this.props
         return <>
@@ -105,8 +121,10 @@ export default class SideItems extends React.Component<ISideItemsProps, ISideIte
                     {this.renderCurrentItem(item, index)}
                 </div>
             })}
-            <Button type="primary" onClick={() => {}}>弹窗</Button>
-            <Modal/>
+            <Button type="primary" onClick={this.onModalShow}>弹窗</Button>
+            <Modal visible={this.state.isVisible} title={'王海鸽'} onClose={this.closeModal} onOk={() => {console.log('ningxueliang')}}>
+                <span>我是内容太</span>
+            </Modal>
         </>
     }
 }
