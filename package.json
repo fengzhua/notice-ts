@@ -144,6 +144,6 @@
   "devDependencies": {
     "@babel/helper-create-regexp-features-plugin": "^7.7.4",
     "@babel/plugin-syntax-jsx": "^7.7.4",
-    "node-sass": "^4.13.0"
+    "node-sass": "^7.0.0"
   }
 }
